@@ -28,8 +28,6 @@ if [ "$gdIP" != "$myIP" ] ; then
 
   echo "`date '+%Y-%m-%d %H:%M:%S'` - Changed GoDaddy DNS IP on ${myhostname}.${mydomain} from ${gdIP} to ${myIP}" >> $logdest
 
-  #chatId=`curl -s -X POST https://api.telegram.org/bot$telegramBotToken/getUpdates | jq '.result[0].message.chat.id'`
-  #echo $chatId
-
-  curl --silent --output /dev/null --show-error --fail -s -X POST https://api.telegram.org/bot$telegramBotToken/sendMessage -d chat_id="$telegramChatId" -d text="$HOSTNAME detected an IP change, GoDaddy DNS IP has been updated to $myIP"
+  # notify telegram bot
+  curl --silent --output /dev/null --show-error --fail -s -X POST https://api.telegram.org/bot$telegramBotToken/sendMessage -d chat_id="$telegramChatId" -d text="$HOSTNAME detected an IP change, GoDaddy DNS IP has been updated from $gdIPto $myIP"
 fi
